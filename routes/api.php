@@ -8,6 +8,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorAvailabilityController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SMSController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UssdController;
 use Illuminate\Http\Request;
@@ -55,3 +56,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Handle Ussd
 Route::post('/ussd', [UssdController::class, 'handle']);
+
+Route::post('/send-sms', [SMSController::class, 'send']);

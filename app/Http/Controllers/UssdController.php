@@ -26,7 +26,40 @@ class UssdController extends Controller
         $this->sessionService = $sessionService;
         $this->menuService = $menuService;
         $this->appointmentService = $appointmentService;
-        $this->messages = ['en' => ['welcome' => "Welcome to Wezi Clinic", 'choose_language' => "Choose Language:\n1. English\n2. Chichewa", 'main_menu' => "Menu:\n1. Book Appointment\n2. Find Your Way\n3. Chat with Us", 'enter_name' => "Please enter your Full Name:", 'select_service' => "Select a service:", 'select_doctor' => "Select a doctor:", 'enter_date' => "Enter appointment date (YYYY-MM-DD):", 'invalid_choice' => "Invalid choice, try again.", 'invalid_date' => "Invalid date. Please enter today or a future date.", 'invalid_format' => "Invalid date format. Use YYYY-MM-DD.", 'appointment_confirmed' => "Thank you {name}! Appointment for {service} with {doctor} on {date} booked. SMS confirmation sent.", 'find_way' => "Wezi Clinic is located along Main Street, Blantyre.", 'chat_support' => "For support, call 265-999-123-456", 'back' => "Back to Main Menu", 'next' => "Next"], 'ny' => ['welcome' => "Takulandirani ku Wezi Clinic", 'choose_language' => "Sankhani Chikhalidwe:\n1. Chingerezi\n2. Chichewa", 'main_menu' => "Menyu:\n1. Kukonzekera Appointment\n2. Kupeza Mapaulani\n3. Lankhula na Ife", 'enter_name' => "Chonde lowetsani dzina lanu lonse:", 'select_service' => "Sankhani utumiki:", 'select_doctor' => "Sankhani dokotala:", 'enter_date' => "Lowetsani tsiku la appointment (YYYY-MM-DD):", 'invalid_choice' => "Sankho losaloledwa, yesani kachiwiri.", 'invalid_date' => "Tsiku silili bwino. Chonde lowetsani lero kapena mtsogolo.", 'invalid_format' => "Format ya tsiku si bwino. Gwiritsani YYYY-MM-DD.", 'appointment_confirmed' => "Zikomo {name}! Appointment ya {service} ndi {doctor} pa {date} yatsimikizika. SMS yatumizidwa.", 'find_way' => "Wezi Clinic ili pa Main Street, Blantyre.", 'chat_support' => "Kuti mulandire thandizo, foni 265-999-123-456", 'back' => "Bwerera ku Main Menu", 'next' => "Zotsatirazi"]];
+        $this->messages = ['en' =>
+        [
+            'welcome' => "Welcome to Wezi Clinic",
+            'choose_language' => "Choose Language:\n1. English\n2. Chichewa",
+            'main_menu' => "Menu:\n1. Book Appointment\n2. Find Your Way\n3. Chat with Us",
+            'enter_name' => "Please enter your Full Name:",
+            'select_service' => "Select a service:",
+            'select_doctor' => "Select a doctor:",
+            'enter_date' => "Enter appointment date (YYYY-MM-DD):",
+            'invalid_choice' => "Invalid choice, try again.",
+            'invalid_date' => "Invalid date. Please enter today or a future date.",
+            'invalid_format' => "Invalid date format. Use YYYY-MM-DD.",
+            'appointment_confirmed' => "Thank you {name}! Appointment for {service} with {doctor} on {date} booked. SMS confirmation sent.",
+            'find_way' => "Wezi Clinic is located along Main Street, Blantyre.",
+            'chat_support' => "For support, call 265-999-123-456",
+            'back' => "Back to Main Menu",
+            'next' => "Next"
+        ], 'ny' => [
+            'welcome' => "Takulandirani ku Wezi Clinic",
+            'choose_language' => "Sankhani Chikhalidwe:\n1. Chingerezi\n2. Chichewa",
+            'main_menu' => "Menyu:\n1. Kukonzekera Appointment\n2. Kupeza Mapaulani\n3. Lankhula na Ife",
+            'enter_name' => "Chonde lowetsani dzina lanu lonse:",
+            'select_service' => "Sankhani utumiki:",
+            'select_doctor' => "Sankhani dokotala:",
+            'enter_date' => "Lowetsani tsiku la appointment (YYYY-MM-DD):",
+            'invalid_choice' => "Sankho losaloledwa, yesani kachiwiri.",
+            'invalid_date' => "Tsiku silili bwino. Chonde lowetsani lero kapena mtsogolo.",
+            'invalid_format' => "Format ya tsiku si bwino. Gwiritsani YYYY-MM-DD.",
+            'appointment_confirmed' => "Zikomo {name}! Appointment ya {service} ndi {doctor} pa {date} yatsimikizika. SMS yatumizidwa.",
+            'find_way' => "Wezi Clinic ili pa Main Street, Blantyre.",
+            'chat_support' => "Kuti mulandire thandizo, foni 265-999-123-456",
+            'back' => "Bwerera ku Main Menu",
+            'next' => "Zotsatirazi"
+        ]];
         $this->services = [['id' => 1, 'name' => 'General Consultation', 'doctors' => [['id' => 1, 'name' => 'Dr. Banda'], ['id' => 2, 'name' => 'Dr. Phiri'],],], ['id' => 2, 'name' => 'Dental Care', 'doctors' => [['id' => 3, 'name' => 'Dr. Chirwa'], ['id' => 4, 'name' => 'Dr. Kumwenda'],],], ['id' => 3, 'name' => 'Pediatrics', 'doctors' => [['id' => 5, 'name' => 'Dr. Mwale'], ['id' => 6, 'name' => 'Dr. Moyo'],],], ['id' => 4, 'name' => 'Laboratory', 'doctors' => [['id' => 7, 'name' => 'Dr. Tembo'],],],];
     }
 
