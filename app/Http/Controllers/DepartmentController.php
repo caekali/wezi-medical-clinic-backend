@@ -8,14 +8,19 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-   
+
     public function index()
     {
         $departments = Department::all();
         return response()->json($departments);
     }
 
-    
+    public function show($id)
+    {
+        $department = Department::findOrFail($id);
+        return response()->json($department);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -31,7 +36,7 @@ class DepartmentController extends Controller
         return response()->json($department, 201);
     }
 
-   
+
     public function update(Request $request, Department $department)
     {
         $request->validate([
@@ -43,7 +48,7 @@ class DepartmentController extends Controller
         return response()->json($department);
     }
 
-   
+
     public function destroy(Department $department)
     {
         $department->delete();
@@ -56,7 +61,7 @@ class DepartmentController extends Controller
         return response()->json($trashed);
     }
 
-    
+
     public function restore($id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);

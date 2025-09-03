@@ -16,13 +16,12 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('patient_name');
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
-            $table->date('appointment_date')->nullable();
-            $table->time('appointment_time')->nullable();
-            $table->foreignId('doctor_id')->nullable()->constrained()->cascade('set null');
-            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed'])->default('pending')->change();
+            $table->date('appointment_date');
+            $table->time('appointment_time');
+            $table->foreignId('doctor_id')->nullable()->constrained()->nullOnDelete();
+            $table->enum('status', ['scheduled', 'confirmed', 'cancelled', 'completed','rescheduled'])->default('scheduled');
             $table->timestamps();
-            $table->softDeletes();
-            
+            // $table->softDeletes();
         });
     }
 

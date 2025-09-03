@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->string("price");
+            $table->enum('status', ['Active', 'InActive'])->default('Active');
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

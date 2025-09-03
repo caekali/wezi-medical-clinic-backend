@@ -9,12 +9,14 @@ class Service extends Model
 {
     protected $fillable = [
         'name',
+        'price',
+        'status',
         'department_id'
     ];
 
 
     public function department(): BelongsTo
     {
-        $this->belongsTo(Department::class);
+        return  $this->belongsTo(Department::class);
     }
 }

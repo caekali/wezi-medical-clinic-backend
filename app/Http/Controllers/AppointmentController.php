@@ -7,23 +7,30 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-   
+
     public function index()
     {
         $appointments = Appointment::all();
         return response()->json($appointments);
     }
 
-   
+
     public function store(Request $request)
     {
-        // Validate the incoming request data
         $validatedData = $request->validate([
-            'phone_number' => 'required|string|max:255',
+            'phone_number' => [
+                'required',
+                'string',
+                'max:20',
+            ],
             'patient_name' => 'required|string|max:255',
-            'service_id' => 'required|exists:services,id',
-            'status' => 'required|in:pending,confirmed,cancelled,completed',
+            'department_id' => 'required|exists:departments,id',
+            'service_id'    => 'required|exists:services,id',
+            'doctor_id'     => 'required|exists:doctors,id',
+            'appointment_date' => 'required|date|after_or_equal:today',
+            'appointment_time' => 'required|date_format:H:i',
         ]);
+
 
         // new appointent
         $appointment = Appointment::create($validatedData);
@@ -31,14 +38,14 @@ class AppointmentController extends Controller
         return response()->json($appointment, 201);
     }
 
-   
+
     public function show(Appointment $appointment)
     {
         return response()->json($appointment);
     }
 
-    
-   
+
+
     public function update(Request $request, Appointment $appointment)
     {
         // Validate the incoming request data 
@@ -56,7 +63,7 @@ class AppointmentController extends Controller
         return response()->json($appointment);
     }
 
-   
+
     public function destroy(Appointment $appointment)
     {
         // Delete the appointment

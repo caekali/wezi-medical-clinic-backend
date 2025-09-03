@@ -14,11 +14,11 @@ class Department extends Model
 
     public function doctors(): HasMany
     {
-        $this->hasMany(Doctor::class);
+       return $this->hasMany(Doctor::class);
     }
 
     public function services(): HasMany
     {
-        $this->hasMany(Service::class);
+        return $this->hasMany(Service::class);
     }
 }

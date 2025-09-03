@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Models\User;
+use App\Notifications\SendDefaultPasswordNotification;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,16 +14,31 @@ class UserController extends Controller
     {
         $role = $request->query('role'); // admin, doctor, staff, patient
 
-        $query = User::query()->whereNull('deleted_at');
+        $query = User::query();
 
         if ($role) {
             $query->where('role', $role);
         }
 
-        $users = $query->get();
+        if ($role === 'doctor') {
+            $query->with(['doctor.department']);
+        }
+
+        $users = $query->get()->map(function ($user) use ($role) {
+            $data = $user->toArray();
+
+            if ($data['role'] === 'doctor') {
+                $data['department'] = $user->doctor?->department?->name;
+                unset($data['doctor']); 
+            }
+
+            return $data;
+        });
 
         return response()->json($users);
     }
+
+
 
     // Create a new user
     public function store(Request $request)
@@ -31,19 +47,22 @@ class UserController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name'  => 'required|string|max:255',
             'email'      => 'required|email|unique:users',
-            'password'   => 'required|min:6',
             'role'       => 'required|in:admin,staff,doctor,patient',
             'department_id' => 'required_if:role,doctor|exists:departments,id',
             'specialization' => 'sometimes|string|max:255',
         ]);
 
+        $password = str()->random(10);
+
         $user = User::create([
             'first_name' => $validated['first_name'],
             'last_name'  => $validated['last_name'],
             'email'      => $validated['email'],
-            'password'   => bcrypt($validated['password']),
+            'password'   => bcrypt($password),
             'role'       => $validated['role'],
         ]);
+
+        $user->notify(new SendDefaultPasswordNotification($password));
 
         if ($validated['role'] === 'doctor') {
             Doctor::create([
@@ -89,7 +108,9 @@ class UserController extends Controller
     // Soft delete user
     public function destroy($id)
     {
-        $user = User::whereNull('deleted_at')->findOrFail($id);
+        // $user = User::whereNull('deleted_at')->findOrFail($id);
+                $user = User::findOrFail($id);
+
         $user->delete();
 
         return response()->json(['message' => 'User deleted successfully']);
